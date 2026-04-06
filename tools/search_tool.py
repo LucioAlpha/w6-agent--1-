@@ -1,4 +1,4 @@
-from ddgs import DDGS
+from duckduckgo_search import DDGS
 
 TOOL = {
     "name": "search_attractions",
@@ -16,4 +16,4 @@ def run(query: str) -> str:
     with DDGS() as ddgs:
         results = list(ddgs.text(query, max_results=3))
         if not results: return "找不到相關資訊"
-        return ", ".join([r['title'] for r in results])
+        return ", ".join([r['title'] for r in results])

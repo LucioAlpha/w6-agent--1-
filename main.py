@@ -14,8 +14,8 @@ from skills.trip_briefing import trip_briefing_skill
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-MODEL_NAME = "gemini-2.0-flash-lite"
-MAX_RETRIES = 3
+MODEL_NAME = "gemini-2.5-flash"
+MAX_RETRIES = 15
 
 def _make_function_declaration(spec: dict) -> types.FunctionDeclaration:
     return types.FunctionDeclaration(
@@ -58,34 +58,34 @@ def _call_model(contents, tools_config):
 
 def run_agent(user_prompt):
     config = types.GenerateContentConfig(tools=[tools_list])
-
-    # 1. 初始呼叫：將問題與工具定義傳給模型
+    
+    # 1. 初始呼叫
     response = _call_model(user_prompt, config)
-
-    # 2. 判斷是否需要呼叫工具 (Tool Use)
     part = response.candidates[0].content.parts[0]
-    if part.function_call:
-        fn_call = part.function_call
-        fn_name = fn_call.name
-        fn_args = dict(fn_call.args)
 
-        # 執行對應的 Tool 函式
+    if part.function_call:
+        fn_name = part.function_call.name
+        fn_args = dict(part.function_call.args)
+
+        # 執行 Tool [cite: 148]
         print(f"--- 系統提示：正在調用工具 {fn_name} ---")
         result = available_functions[fn_name](**fn_args)
 
-        # 3. 將工具結果傳回模型進行總結
-        tool_response = types.Part.from_function_response(
-            name=fn_name,
-            response={"result": result}
-        )
-        response = _call_model(
-            [
-                types.Content(role="user", parts=[types.Part.from_text(text=user_prompt)]),
-                types.Content(role="model", parts=[part]),
-                types.Content(role="user", parts=[tool_response]),
-            ],
-            config
-        )
+        # 2. 建立正確的對話上下文回傳給 LLM
+        # 必須包含：原始用戶問題、模型的 function_call、以及工具的 function_response
+        history = [
+            types.Content(role="user", parts=[types.Part.from_text(text=user_prompt)]),
+            types.Content(role="model", parts=[part]),
+            types.Content(role="user", parts=[
+                types.Part.from_function_response(
+                    name=fn_name,
+                    response={"result": str(result)} # 確保轉為字串 [cite: 177]
+                )
+            ]),
+        ]
+        
+        # 取得最終總結回答
+        response = _call_model(history, config)
 
     return response.text
 
@@ -105,4 +105,4 @@ if __name__ == "__main__":
                 print(f"Agent 回覆: {answer}")
         except Exception as e:
             print(f"❌ 發生錯誤: {e}")
-            print("請稍等片刻再試，或檢查你的 API Key 配額。")
+            print("請稍等片刻再試，或檢查你的 API Key 配額。")
