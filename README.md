@@ -81,17 +81,25 @@ python app.py
 
 ```
 === 旅遊前哨站 Agent 已啟動 ===
-您想去哪個城市？ (輸入 'exit' 離開): Kyoto 簡報
-
-=== Kyoto 行前簡報 ===
-[天氣] 16°C, Clear
-[景點] 金閣寺, 嵐山竹林, 伏見稻荷大社
-[美食] 懷石料理, 抹茶甜點, 京都拉麵
-[購物] 錦市場, 祇園, 二条城土産店
-[活動] Explore your local city（適合 1 人）
-[知識] A snail can sleep for 3 years.
-[格言] Take time to appreciate beauty around you.
+您想去哪個城市？ (輸入 'exit' 離開): 台中 規劃
+=== 台中 行前簡報 ===
+[天氣] 25°C, Partly cloudy
+[景點] 【2026台中景點推薦】 TOP100台中市區,近郊景點,台中一日遊必讀!, 【2026台中景點推薦】 TOP 10... | TISS玩味食尚, 2026【台中室內親子景點】 15... | 寶寶溫旅行親子生活
+[美食] 2025 台中美食推薦｜50家高評價台中必吃美食餐廳，從早餐吃到宵夜《鍋物、燒肉、咖啡廳、早午餐、台中美食小吃》 - 好好玩FUNIT, TOP26台中美食推薦【2025】台中必吃美食餐廳,特色小吃,早餐,火鍋, 「台中捷運美食地圖」總整理！5大商圈＆23家必 吃美食，餐廳、咖啡廳、小吃都有 | 新創開
+[購物] 【台中】三井Outlet... | Mimi韓の旅遊指南, 【2026台中必買伴手禮推薦】 TOP16連在地人都甘願排隊買!台中特產, lululemon... | 芸芸電車日記Yunn
+[活動] Buy a new house decoration（適合 1 人）
+[知識] 38% of American men say they love their cars more than women
+[格言] When having a clear out, ask yourself if an item has any financial, practical or sentimental value. If not, chuck it.
+您想去哪個城市？ (輸入 'exit' 離開): 
 ```
+
+![alt text](asset/UI畫面.png)
+
+UI 介面
+
+![alt text](asset/命令列畫面.png)
+
+命令列介面
 
 ---
 
