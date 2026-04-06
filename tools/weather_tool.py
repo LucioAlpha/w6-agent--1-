@@ -4,7 +4,11 @@ TOOL = {
     "name": "get_weather",
     "description": "查詢目的地的即時天氣資訊",
     "parameters": {
-        "city": {"type": "string", "description": "城市名稱，例如：Tokyo"}
+        "type": "object",
+        "properties": {
+            "city": {"type": "string", "description": "城市名稱，例如：Tokyo"}
+        },
+        "required": ["city"]
     }
 }
 
