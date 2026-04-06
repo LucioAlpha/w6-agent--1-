@@ -1,4 +1,5 @@
-from duckduckgo_search import DDGS
+# 修正前：from duckduckgo_search import DDGS
+from ddgs import DDGS  # 修正後，這將消除 RuntimeWarning
 
 TOOL = {
     "name": "search_attractions",

@@ -98,7 +98,9 @@ if __name__ == "__main__":
         try:
             # 如果使用者明確要求簡報，直接執行 Skill
             if "簡報" in user_input or "規劃" in user_input:
-                print(trip_briefing_skill(user_input))
+                # 去除「規劃」、「簡報」等字眼，只留下城市名
+                city_name = user_input.replace("規劃", "").replace("簡報", "").strip()
+                print(trip_briefing_skill(city_name))
             else:
                 # 否則進入一般 Agent 自動判斷模式
                 answer = run_agent(user_input)

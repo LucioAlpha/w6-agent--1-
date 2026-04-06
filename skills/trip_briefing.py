@@ -2,19 +2,16 @@ from tools.weather_tool import run as run_weather
 from tools.search_tool import run as run_search
 from tools.fun_facts_tool import get_travel_fact, get_motto, get_activity
 
+# trip_briefing.py 建議微調
 def trip_briefing_skill(city: str):
-    """
-    整合多個工具，輸出旅遊行前簡報：
-    - 天氣（wttr.in）
-    - 景點、美食、購物推薦（DuckDuckGo）
-    - 活動建議（Bored API）
-    - 旅遊知識（Useless Facts）
-    - 人生格言（Advice Slip）
-    """
-    weather     = run_weather(city)
-    attractions = run_search(f"{city} 景點")
-    food        = run_search(f"{city} 美食")
-    shopping    = run_search(f"{city} 購物 推薦")
+    # 確保傳入的 city 不包含 "規劃" 或 "簡報"
+    clean_city = city.replace("規劃", "").replace("簡報", "").strip()
+    
+    weather     = run_weather(clean_city)
+    # 搜尋時手動加上主題關鍵字，這是主題 A 的核心要求 [cite: 115, 120]
+    attractions = run_search(f"{clean_city} 景點")
+    food        = run_search(f"{clean_city} 必吃美食")
+    shopping    = run_search(f"{clean_city} 購物 推薦")
     activity    = get_activity()
     fact        = get_travel_fact()
     motto       = get_motto()
