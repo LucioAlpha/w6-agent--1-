@@ -1,4 +1,9 @@
 .env
 分組實作.pdf
+asset/SKILL.md
 SKILL.md
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
